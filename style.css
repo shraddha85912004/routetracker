@@ -1,0 +1,152 @@
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: #f4f7fc;
+        }
+        .app-header {
+            background: #1e2a3e;
+            color: white;
+            padding: 12px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+        .timer-panel {
+            background: #0f1722;
+            padding: 6px 16px;
+            border-radius: 48px;
+            font-family: monospace;
+            font-size: 1.6rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .btn-group {
+            display: flex;
+            gap: 12px;
+        }
+        button {
+            background: #2c3e50;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 8px 20px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        button i {
+            font-size: 1rem;
+        }
+        button#startBtn { background: #27ae60; }
+        button#startBtn:hover { background: #2ecc71; transform: scale(1.02);}
+        button#stopBtn { background: #c0392b; }
+        button#stopBtn:hover { background: #e74c3c; }
+        button.history-toggle { background: #2980b9; }
+        button.history-toggle:hover { background: #3498db; }
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+        #map {
+            flex: 3;
+            height: 100%;
+            min-height: 400px;
+        }
+        .history-sidebar {
+            flex: 1;
+            background: white;
+            border-left: 1px solid #ccc;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            transition: 0.2s;
+            background: #fefefe;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.05);
+        }
+        .history-header {
+            padding: 16px;
+            background: #ecf0f1;
+            font-weight: bold;
+            font-size: 1.2rem;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .history-list {
+            padding: 10px;
+            list-style: none;
+            margin: 0;
+        }
+        .history-list li {
+            background: #f8f9fa;
+            margin-bottom: 12px;
+            padding: 12px;
+            border-radius: 14px;
+            border-left: 5px solid #3498db;
+            cursor: pointer;
+            transition: 0.1s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .history-list li:hover {
+            background: #e9ecef;
+            transform: translateX(3px);
+        }
+        .history-item-title {
+            font-weight: bold;
+            font-size: 0.85rem;
+            color: #2c3e50;
+        }
+        .history-item-time {
+            font-size: 0.7rem;
+            color: #7f8c8d;
+        }
+        .badge-stop {
+            background: #e67e22;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            display: inline-block;
+            margin-top: 6px;
+        }
+        .info-status {
+            background: #fff3cd;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            border-radius: 20px;
+        }
+        .footer-note {
+            padding: 6px 12px;
+            font-size: 0.7rem;
+            background: #eef2f5;
+            text-align: center;
+            color: #2c3e50;
+        }
+        @media (max-width: 720px) {
+            .main-container { flex-direction: column; }
+            .history-sidebar { max-height: 35%; border-left: none; border-top: 1px solid #ccc; }
+            .timer-panel { font-size: 1.2rem; }
+        }
+        .leaflet-marker-icon.stop-marker {
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
+        }
+   

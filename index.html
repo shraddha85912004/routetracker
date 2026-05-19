@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>RouteTracker | Real-time GPS with Stop Detection & History</title>
+    <!-- Leaflet CSS + JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Font Awesome (icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+    
+</head>
+<body>
+    
+<div class="app-header">
+    <div><i class="fas fa-route"></i> <strong>RouteTracker</strong></div>
+    <div class="timer-panel" id="timerDisplay">00:00:00</div>
+    <div class="btn-group">
+        <button id="startBtn"><i class="fas fa-play"></i> Start</button>
+        <button id="stopBtn"><i class="fas fa-stop"></i> Stop & Save</button>
+        <button id="refreshHistoryBtn" class="history-toggle"><i class="fas fa-history"></i> Refresh</button>
+    </div>
+</div>
+<div class="main-container">
+    <div id="map"></div>
+    <div class="history-sidebar">
+        <div class="history-header">
+            <span><i class="fas fa-database"></i> Past Routes</span>
+            <span class="info-status" id="routeCountBadge">0 routes</span>
+        </div>
+        <div style="overflow-y: auto;">
+            <ul id="historyList" class="history-list">
+                <li style="text-align:center; color:#aaa;">No routes saved yet.<br>Start tracking & stop to save.</li>
+            </ul>
+        </div>
+        <div class="footer-note">
+            <i class="fas fa-map-marker-alt"></i> Stops (red markers) triggered after 60 sec stationary (within 12m). Real-time timer.
+        </div>
+    </div>
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
