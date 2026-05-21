@@ -52,6 +52,17 @@ app.post('/api/routes', (req, res) => {
   res.status(201).json({ id: newRoute.id });
 });
 
+app.delete('/api/routes/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const routeIndex = db.data.routes.findIndex(r => r.id === id);
+  if (routeIndex === -1) {
+    return res.status(404).json({ error: 'Route not found' });
+  }
+  db.data.routes.splice(routeIndex, 1);
+  db.write();
+  res.json({ message: 'Route deleted' });
+});
+
 app.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`);
   console.log(`👉 Open that URL in your browser`);

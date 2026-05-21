@@ -1,4 +1,4 @@
-// script.js – frontend map & tracking logic
+//  frontend map & tracking logic
 const map = L.map('map').setView([20.5937, 78.9629], 5);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; OSM & CartoDB'
@@ -113,6 +113,23 @@ async function saveCurrentRoute() {
     }
 }
 
+async function deleteRoute(routeId) {
+  if (!confirm('Delete this route permanently?')) return;
+  try {
+    const res = await fetch(`/api/routes/${routeId}`, { method: 'DELETE' });
+    if (res.ok) {
+      loadHistoryList();        // refresh the list
+      // If the deleted route was currently shown on map, clear it
+      if (routePolyline) map.removeLayer(routePolyline);
+      stopMarkersGroup.clearLayers();
+    } else {
+      alert('Delete failed');
+    }
+  } catch (err) {
+    alert('Network error');
+  }
+}
+
 async function loadHistoryList() {
     try {
         const res = await fetch('/api/routes');
@@ -126,14 +143,23 @@ async function loadHistoryList() {
         }
         historyList.innerHTML = '';
         routes.forEach(route => {
-            const li = document.createElement('li');
-            li.innerHTML = `
-                <div><b>Route #${route.id}</b></div>
-                <div>${new Date(route.startTime).toLocaleString()} → ${new Date(route.endTime).toLocaleTimeString()}</div>
-                <div><span class="badge-stop">${route.stopCount} stops</span> (${route.pointsCount} points)</div>
-            `;
-            li.onclick = () => viewFullRoute(route.id);
-            historyList.appendChild(li);
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div><b>Route #${route.id}</b></div>
+            <button class="delete-btn" data-id="${route.id}" style="background:#e74c3c; border:none; color:white; border-radius:20px; padding:4px 10px; cursor:pointer;">
+            <i class="fas fa-trash"></i> Delete
+            </button>
+            </div>
+            <div>${new Date(route.startTime).toLocaleString()} → ${new Date(route.endTime).toLocaleTimeString()}</div>
+            <div><span class="badge-stop">${route.stopCount} stops</span> (${route.pointsCount} points)</div>
+        `;
+        li.querySelector('.delete-btn').onclick = (e) => {
+            e.stopPropagation();
+            deleteRoute(route.id);
+        };
+        li.onclick = () => viewFullRoute(route.id);
+        historyList.appendChild(li);
         });
     } catch (err) {
         console.error(err);

@@ -68,7 +68,7 @@
         #map {
             flex: 3;
             height: 100%;
-            min-height: 400px;
+            min-height: 300px;
         }
         .history-sidebar {
             flex: 1;
